@@ -17,6 +17,12 @@ Lazgui Helps To Create Lazarus Pascal Gui Project.
 ==================================================
 
 
+.. note::
+
+    Right now this project is VERY Alpha... I'm just trying out an idea.
+    
+  
+
 See the Code at: `<https://github.com/sonofeft/LazGUI>`_
 
 See the Docs at: `<http://lazgui.readthedocs.org/en/latest/>`_
