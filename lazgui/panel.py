@@ -49,7 +49,7 @@ class Panel( Widget ):
     def recalc(self):
         """Any changes to location of layout requires a recalc"""
         self.set_bbox() # uses current self.Top and self.Left
-        for widget in self.widgetL:
+        for widget in self.child_widgetL:
             widget.set_top_left(Top=self.Top+widget.Top,  Left=self.Left+widget.Left)
             self.adjust_bbox_for_widget( widget )
 

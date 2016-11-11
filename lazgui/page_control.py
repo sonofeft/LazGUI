@@ -29,6 +29,7 @@ class PageControl( Widget ):
     def add_tabsheet(self, tab_sheet):
         
         self.child_widgetL.append( tab_sheet )
+        tab_sheet.set_indent( self.indent + 1 )
         self.ActivePage = self.child_widgetL[0].full_widget_name # set 1st tab as active page
         
         tab_sheet.ClientHeight = self.Height - 28

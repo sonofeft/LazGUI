@@ -23,35 +23,49 @@ class Layout( object ):
         self.ActualWidth =  Width  + LeftMargin + RightMargin
         self.set_bbox()
         
-        self.widgetL = [] # Usually order is important
+        self.lay_widgetL = [] # a layout widget Usually order is important
         
         self.full_widget_name = 'Layout'
         self.indent = 0
         
     def set_indent(self, indent):
         self.indent = indent
-        for widget in self.widgetL:
+        for widget in self.lay_widgetL:
             widget.set_indent( self.indent )
+            
+        if hasattr(self, 'child_widgetL'):
+            for child in self.child_widgetL:
+                child.set_indent( self.indent + 1 )
+            
         
     def get_full_widgetL(self):
         widgetL = []
-        for W in self.widgetL:
-            #try:
+        for W in self.lay_widgetL:
             widgetL.extend( W.get_full_widgetL() )
-            #except:
-            #    print 'ERROR with W.get_full_widgetL() for W =',W
+            #if hasattr(W, 'child_widgetL'):
+            #    for child in W.child_widgetL:
+            #        widgetL.extend( child.get_full_widgetL() )
+            #if hasattr(W, 'lay_widgetL'):
+            #    for lay in W.lay_widgetL:
+            #        widgetL.extend( lay.get_full_widgetL() )
+            
+        if hasattr(self, 'child_widgetL'):
+            for child in self.child_widgetL:
+                widgetL.extend( child.get_full_widgetL() )
+                
         return widgetL
 
         
     def get_top_level_widgetL(self):
-        return self.widgetL[:]
+        return self.lay_widgetL[:]
 
     def append_widget_or_layout(self, widget):
         """Some Widget objects require additional "helper" Widgets in another Layout 
            (No longer intercepting widget definitions)
         """
         
-        self.widgetL.append( widget )
+        self.lay_widgetL.append( widget )
+        widget.set_indent( self.indent )
         return widget
         
     
@@ -60,7 +74,7 @@ class Layout( object ):
         
         widget.set_top_left(Top=self.Top+widget.Top,  Left=self.Left+widget.Left)
         self.adjust_bbox_for_widget( widget )
-        #self.widgetL.append( widget )
+        #self.lay_widgetL.append( widget )
         widget.set_indent( self.indent )
         
         return self.append_widget_or_layout( widget ) # for calls like: B = Lay.add_widget( Button() ) 
@@ -68,11 +82,11 @@ class Layout( object ):
     def recalc(self):
         """Any changes to location of layout requires a recalc"""
         self.set_bbox() # uses current self.Top and self.Left
-        for widget in self.widgetL:
+        for widget in self.lay_widgetL:
             widget.set_top_left(Top=self.Top+widget.Top,  Left=self.Left+widget.Left)
             self.adjust_bbox_for_widget( widget )
             
-            widget.set_indent( self.indent + 1 )
+            widget.set_indent( self.indent )
 
     def adjust_bbox_for_widget(self, widget):
         #print 'in adjust_bbox_for_widget:',widget, widget.BBox
@@ -115,7 +129,7 @@ class Layout( object ):
         print '='*55
         print self.full_widget_name,' BBox=',self.BBox
         outL = []
-        for widget in self.widgetL:
+        for widget in self.lay_widgetL:
             outL.append( ['Left=%3i'%widget.Left, 'Top=%3i'%widget.Top, 
                           widget.full_widget_name, 'BBox=%s'%widget.BBox, 
                           'AW=%s'%widget.ActualWidth, 'AH=%s'%widget.ActualHeight] )
@@ -126,16 +140,16 @@ class Layout( object ):
         sL = []
             
         itab = 0
-        for w in self.widgetL:
+        for w in self.lay_widgetL:
             if hasattr(w, 'TabOrder'):
                 w.TabOrder = itab
                 itab += 1
             if hasattr(w, 'TabOrder') or hasattr(w, 'Caption'):
                 sL.append( w.lfm_file_contents() )
                 
-            if hasattr(w,'widgetL'):
-                for child in w.widgetL:
-                    child.set_indent( self.indent + 1 )
+            if hasattr(w,'lay_widgetL'):
+                for child in w.lay_widgetL:
+                    child.set_indent( self.indent )
                     sL.append( child.lfm_file_contents() )
                 
             if hasattr(w,'child_widgetL'):
@@ -170,7 +184,7 @@ class GridPanel( Layout ):
         """
         row_col = (row,col)
         self.grid_rowcolD[widget] = row_col
-        #self.widgetL.append( widget )
+        #self.lay_widgetL.append( widget )
         widget = self.append_widget_or_layout( widget )
         
         # get list of widgets from (row,col) tuple
@@ -178,6 +192,7 @@ class GridPanel( Layout ):
             self.grid_widgetD[row_col].append( widget )
         else:
             self.grid_widgetD[row_col] = [ widget ]
+        widget.set_indent( self.indent )
         
         self.recalc()
         return widget # for calls like: B = Lay.add_widget( Button() ) 
@@ -263,14 +278,14 @@ class VStackPanel( Layout ):
     def add_widget(self, widget):
         """Arrange widgets in Vertical Stack."""
         
-        if len(self.widgetL)==0:
+        if len(self.lay_widgetL)==0:
             x0 = self.Left
             y1 = self.Top
         else:
-            x0,y0,x1,y1 = self.widgetL[-1].BBox
+            x0,y0,x1,y1 = self.lay_widgetL[-1].BBox
             #x0 = x0 - self.Left
             #y1 = y1 - self.Top
-        widget = self.append_widget_or_layout( widget ) #self.widgetL.append( widget )
+        widget = self.append_widget_or_layout( widget ) #self.lay_widgetL.append( widget )
         
         #if isinstance(widget,VStackPanel):
         #    print 'VStackPanel setting BBox upper left to BBTop=%i,  BBLeft=%i'%(y1,  x0)
@@ -282,18 +297,19 @@ class VStackPanel( Layout ):
         self.adjust_bbox_for_widget( widget )
         #if isinstance(widget,VStackPanel):
         #    print '          adjusted self BBox=',self.BBox
+        widget.set_indent( self.indent )
         
         return widget # for calls like: B = Lay.add_widget( Button() ) 
         
     def recalc(self):
         """Any changes to location of layout requires a recalc"""
         self.set_bbox() # uses current self.Top and self.Left
-        for i,widget in enumerate(self.widgetL):        
+        for i,widget in enumerate(self.lay_widgetL):        
             if i==0:
                 x0 = self.Left
                 y1 = self.Top
             else:
-                x0,y0,x1,y1 = self.widgetL[i-1].BBox
+                x0,y0,x1,y1 = self.lay_widgetL[i-1].BBox
             
             widget.set_bbox_upper_left(BBTop=y1,  BBLeft=x0)
             self.adjust_bbox_for_widget( widget )
@@ -313,14 +329,14 @@ class HStackPanel( Layout ):
     def add_widget(self, widget):
         """Arrange widgets in Horizontal Stack."""
         
-        if len(self.widgetL)==0:
+        if len(self.lay_widgetL)==0:
             x1 = self.Left
             y0 = self.Top
         else:
-            x0,y0,x1,y1 = self.widgetL[-1].BBox
+            x0,y0,x1,y1 = self.lay_widgetL[-1].BBox
             #x1 = x1 - self.Left
             #y0 = y0 - self.Top
-        widget = self.append_widget_or_layout( widget ) #self.widgetL.append( widget )
+        widget = self.append_widget_or_layout( widget ) #self.lay_widgetL.append( widget )
 
         #print 'HStack setting BBox upper left to BBTop=%i,  BBLeft=%i'%(y0,  x1)
         widget.set_bbox_upper_left(BBTop=y0,  BBLeft=x1)
@@ -328,18 +344,19 @@ class HStackPanel( Layout ):
         #print '                   self BBox=',self.BBox
         self.adjust_bbox_for_widget( widget )
         #print '          adjusted self BBox=',self.BBox
+        widget.set_indent( self.indent )
         
         return widget # for calls like: B = Lay.add_widget( Button() ) 
         
     def recalc(self):
         """Any changes to location of layout requires a recalc"""
         self.set_bbox() # uses current self.Top and self.Left
-        for i,widget in enumerate(self.widgetL):        
+        for i,widget in enumerate(self.lay_widgetL):        
             if i==0:
                 x1 = self.Left
                 y0 = self.Top
             else:
-                x0,y0,x1,y1 = self.widgetL[i-1].BBox
+                x0,y0,x1,y1 = self.lay_widgetL[i-1].BBox
             
             widget.set_bbox_upper_left(BBTop=y0,  BBLeft=x1)
             self.adjust_bbox_for_widget( widget )

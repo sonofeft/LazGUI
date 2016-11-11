@@ -36,32 +36,35 @@ class LabeledEdit( Widget ):
 
     def lfm_file_contents(self):
         """lfm files define form elements. Kind of a hierarchical config file."""
-        sL = ['  object %s: T%s'%(self.full_widget_name, self.widget_type)  ]
+        
+        pad = '  '*self.indent
+        
+        sL = [pad+'  object %s: T%s'%(self.full_widget_name, self.widget_type)  ]
         
         for s in ['Left','Height','Top','Width','AutoSize',
                   'OnClick','OnChange','TabOrder','Text']:
             a = getattr(self, s, None)
             if not a is None:
                 if s in ['Caption','Text']:
-                    sL.append( "    %s = '%s'"%(s,a) )
+                    sL.append( pad+"    %s = '%s'"%(s,a) )
                 else:
-                    sL.append( '    %s = %s'%(s,a) )
+                    sL.append( pad+'    %s = %s'%(s,a) )
         
         
-        sL.append("    EditLabel.AnchorSideLeft.Control = %s"%self.full_widget_name )
-        sL.append("    EditLabel.AnchorSideRight.Control = %s"%self.full_widget_name )
-        sL.append("    EditLabel.AnchorSideRight.Side = asrBottom" )
-        sL.append("    EditLabel.AnchorSideBottom.Control = %s"%self.full_widget_name )
-        sL.append("    EditLabel.Left = %s"%self.Left )
-        sL.append("    EditLabel.Height = %s"%(self.Height - 8,) )
-        sL.append("    EditLabel.Top = %s"%(self.Top - 22,) )
-        sL.append("    EditLabel.Width = %s"%self.Width )
-        sL.append("    EditLabel.Caption = '%s'"%self.label_text )
-        sL.append("    EditLabel.ParentColor = False" )
-        sL.append("    TabOrder = %s"%self.TabOrder )
-        #sL.append("    Text = '%s'"%self.initial_value )
+        sL.append(pad+"    EditLabel.AnchorSideLeft.Control = %s"%self.full_widget_name )
+        sL.append(pad+"    EditLabel.AnchorSideRight.Control = %s"%self.full_widget_name )
+        sL.append(pad+"    EditLabel.AnchorSideRight.Side = asrBottom" )
+        sL.append(pad+"    EditLabel.AnchorSideBottom.Control = %s"%self.full_widget_name )
+        sL.append(pad+"    EditLabel.Left = %s"%self.Left )
+        sL.append(pad+"    EditLabel.Height = %s"%(self.Height - 8,) )
+        sL.append(pad+"    EditLabel.Top = %s"%(self.Top - 22,) )
+        sL.append(pad+"    EditLabel.Width = %s"%self.Width )
+        sL.append(pad+"    EditLabel.Caption = '%s'"%self.label_text )
+        sL.append(pad+"    EditLabel.ParentColor = False" )
+        sL.append(pad+"    TabOrder = %s"%self.TabOrder )
+        #sL.append(pad+"    Text = '%s'"%self.initial_value )
                     
-        sL.append('  end')
+        sL.append(pad+'  end')
         return '\n'.join(sL) + '\n'
                  
 

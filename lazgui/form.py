@@ -62,6 +62,7 @@ class Form( object ):
     def set_layout(self, layout):
         #print 'Setting layout to WxH =',layout.ActualWidth,layout.ActualHeight
         self.layout = layout
+        self.layout.set_indent( 0 )
         
         # if layout is bigger than form, increase size of form
         H = layout.ActualHeight + layout.Top + layout.BottomMargin
@@ -99,8 +100,6 @@ class Form( object ):
             self.has_file_menu = False
                 
     
-    #def add_widget(self, W):
-    #    self.layout.add_widget( W ) # <-- A little tricky w/o knowledge of layout
             
     def pas_file_contents(self):
         # use dictionary, D, to hold values for later string format statements

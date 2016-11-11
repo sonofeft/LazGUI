@@ -89,45 +89,45 @@ object MyForm1: TMyForm1
     AutoSize = False
     ClientHeight = 128
     ClientWidth = 324
-  object Get_Other_Stuff_LabeledEdit: TLabeledEdit
-    Left = 51
-    Height = 23
-    Top = 52
-    Width = 126
-    AutoSize = False
-    OnChange = Get_Other_Stuff_LabeledEdit_Change
-    TabOrder = 0
-    Text = 'LabeledEdit'
-    EditLabel.AnchorSideLeft.Control = Get_Other_Stuff_LabeledEdit
-    EditLabel.AnchorSideRight.Control = Get_Other_Stuff_LabeledEdit
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = Get_Other_Stuff_LabeledEdit
-    EditLabel.Left = 51
-    EditLabel.Height = 15
-    EditLabel.Top = 30
-    EditLabel.Width = 126
-    EditLabel.Caption = 'Enter Other Stuff'
-    EditLabel.ParentColor = False
-    TabOrder = 0
-  end
-      object GetValueLabel_Label: TLabel
-        Left = 203
-        Height = 25
-        Top = 58
-        Width = 75
-        AutoSize = True
-        Caption = 'xxx'
-      end
-      object GetValue_Edit: TEdit
-        Left = 203
-        Height = 23
-        Top = 83
-        Width = 99
-        AutoSize = False
-        OnChange = GetValue_Edit_Change
-        TabOrder = 0
-        Text = 'HLayout Wrapped'
-      end
+    object Get_Other_Stuff_LabeledEdit: TLabeledEdit
+      Left = 51
+      Height = 23
+      Top = 52
+      Width = 126
+      AutoSize = False
+      OnChange = Get_Other_Stuff_LabeledEdit_Change
+      TabOrder = 0
+      Text = 'LabeledEdit'
+      EditLabel.AnchorSideLeft.Control = Get_Other_Stuff_LabeledEdit
+      EditLabel.AnchorSideRight.Control = Get_Other_Stuff_LabeledEdit
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Get_Other_Stuff_LabeledEdit
+      EditLabel.Left = 51
+      EditLabel.Height = 15
+      EditLabel.Top = 30
+      EditLabel.Width = 126
+      EditLabel.Caption = 'Enter Other Stuff'
+      EditLabel.ParentColor = False
+      TabOrder = 0
+    end
+    object GetValueLabel_Label: TLabel
+      Left = 203
+      Height = 25
+      Top = 58
+      Width = 75
+      AutoSize = True
+      Caption = 'xxx'
+    end
+    object GetValue_Edit: TEdit
+      Left = 203
+      Height = 23
+      Top = 83
+      Width = 99
+      AutoSize = False
+      OnChange = GetValue_Edit_Change
+      TabOrder = 0
+      Text = 'HLayout Wrapped'
+    end
   end
   object MyPageControl_PageControl: TPageControl
     Left = 51
@@ -151,27 +151,27 @@ object MyForm1: TMyForm1
         TabOrder = 0
         Text = 'No Label'
       end
-  object Get_Stuff_LabeledEdit1: TLabeledEdit
-    Left = 10
-    Height = 23
-    Top = 53
-    Width = 86
-    AutoSize = False
-    OnChange = Get_Stuff_LabeledEdit1Change
-    TabOrder = 1
-    Text = 'Has Label'
-    EditLabel.AnchorSideLeft.Control = Get_Stuff_LabeledEdit1
-    EditLabel.AnchorSideRight.Control = Get_Stuff_LabeledEdit1
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = Get_Stuff_LabeledEdit1
-    EditLabel.Left = 10
-    EditLabel.Height = 15
-    EditLabel.Top = 31
-    EditLabel.Width = 86
-    EditLabel.Caption = 'Enter Stuff'
-    EditLabel.ParentColor = False
-    TabOrder = 1
-  end
+      object Get_Stuff_LabeledEdit1: TLabeledEdit
+        Left = 10
+        Height = 23
+        Top = 53
+        Width = 86
+        AutoSize = False
+        OnChange = Get_Stuff_LabeledEdit1Change
+        TabOrder = 1
+        Text = 'Has Label'
+        EditLabel.AnchorSideLeft.Control = Get_Stuff_LabeledEdit1
+        EditLabel.AnchorSideRight.Control = Get_Stuff_LabeledEdit1
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = Get_Stuff_LabeledEdit1
+        EditLabel.Left = 10
+        EditLabel.Height = 15
+        EditLabel.Top = 31
+        EditLabel.Width = 86
+        EditLabel.Caption = 'Enter Stuff'
+        EditLabel.ParentColor = False
+        TabOrder = 1
+      end
     end
     object MyTabSheet_Panel1: TTabSheet
       Caption = 'MyTabSheet_Panel1'
@@ -187,27 +187,27 @@ object MyForm1: TMyForm1
         TabOrder = 0
         Text = 'No Label #2'
       end
-  object Get_Stuff__2_LabeledEdit: TLabeledEdit
-    Left = 10
-    Height = 23
-    Top = 53
-    Width = 106
-    AutoSize = False
-    OnChange = Get_Stuff__2_LabeledEdit_Change
-    TabOrder = 1
-    Text = 'Has Label #2'
-    EditLabel.AnchorSideLeft.Control = Get_Stuff__2_LabeledEdit
-    EditLabel.AnchorSideRight.Control = Get_Stuff__2_LabeledEdit
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = Get_Stuff__2_LabeledEdit
-    EditLabel.Left = 10
-    EditLabel.Height = 15
-    EditLabel.Top = 31
-    EditLabel.Width = 106
-    EditLabel.Caption = 'Enter Stuff #2'
-    EditLabel.ParentColor = False
-    TabOrder = 1
-  end
+      object Get_Stuff__2_LabeledEdit: TLabeledEdit
+        Left = 10
+        Height = 23
+        Top = 53
+        Width = 106
+        AutoSize = False
+        OnChange = Get_Stuff__2_LabeledEdit_Change
+        TabOrder = 1
+        Text = 'Has Label #2'
+        EditLabel.AnchorSideLeft.Control = Get_Stuff__2_LabeledEdit
+        EditLabel.AnchorSideRight.Control = Get_Stuff__2_LabeledEdit
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = Get_Stuff__2_LabeledEdit
+        EditLabel.Left = 10
+        EditLabel.Height = 15
+        EditLabel.Top = 31
+        EditLabel.Width = 106
+        EditLabel.Caption = 'Enter Stuff #2'
+        EditLabel.ParentColor = False
+        TabOrder = 1
+      end
     end
   end
   object MainMenu1: TMainMenu

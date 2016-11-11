@@ -91,11 +91,29 @@ class Widget( object ):
         
     def set_indent(self, indent):
         self.indent = indent
+        for child in self.child_widgetL:
+            child.set_indent( self.indent + 1 )
+            
+        if hasattr(self, 'lay_widgetL'):
+            for lay in self.lay_widgetL:
+                lay.set_indent( self.indent )
     
     def get_full_widgetL(self):
         full_widgetL = [self]
         for child in self.child_widgetL:
             full_widgetL.extend( child.get_full_widgetL() )
+            #if hasattr(child, 'lay_widgetL'):
+            #    for lay in child.lay_widgetL:
+            #        full_widgetL.extend( lay.get_full_widgetL() )
+            #if hasattr(child, 'child_widgetL'):
+            #    for c in child.child_widgetL:
+            #        full_widgetL.extend( c.get_full_widgetL() )
+            
+        if hasattr(self, 'lay_widgetL'):
+            for lay in self.lay_widgetL:
+                full_widgetL.extend( lay.get_full_widgetL() )
+            
+            
         return full_widgetL
 
     

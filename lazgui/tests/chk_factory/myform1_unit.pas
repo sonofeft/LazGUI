@@ -147,16 +147,15 @@ begin
     Last_Sender := Sender;
     MyForm1.Caption := 'Clicked ' + Sender.ToString + ' Do_Wide_Things_Button_Click';
     MyChoice_RadioGroup_val := 'default option #1';
-     Get_What_Edit_val := 'XXXXXXXXXXXX';
-     Get_Stuff_LabeledEdit_val := 'XXXXXXXXXXXX';
-     Get_Other_Stuff_LabeledEdit_val := 'XXXXXXXXXXXX';
-     GetValue_Edit_val := 'XXXXXXXXXXXX';
-     Get_What_Edit1_val := 'XXXXXXXXXXXX';
-     Get_Stuff_LabeledEdit1_val := 'XXXXXXXXXXXX';
-     Get_What_Edit2_val := 'XXXXXXXXXXXX';
-     Get_Stuff__2_LabeledEdit_val := 'XXXXXXXXXXXX';
-     Set_All_IO_Vars();
-
+    Get_What_Edit_val := 'XXXXX';
+    Get_Stuff_LabeledEdit_val := 'XXXXX';
+    Get_Other_Stuff_LabeledEdit_val := 'XXXXX';
+    GetValue_Edit_val := 'XXXXX';
+    Get_What_Edit1_val := 'XXXXX';
+    Get_Stuff_LabeledEdit1_val := 'XXXXX';
+    Get_What_Edit2_val := 'XXXXX';
+    Get_Stuff__2_LabeledEdit_val := 'XXXXX';
+    Set_All_IO_Vars();
 end;
 procedure TMyForm1.Get_What_Edit_Change(Sender: TObject);
 begin
