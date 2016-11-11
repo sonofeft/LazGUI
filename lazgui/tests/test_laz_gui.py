@@ -32,8 +32,8 @@ if here not in sys.path[:2]:
 if up_one not in sys.path[:2]:
     sys.path.insert(0, up_one)
 
-from lazgui.laz_gui import LazarusGUI
-from lazgui.gui_factory import *
+from laz_gui import LazarusGUI
+from gui_factory import *
 
 class MyTest(unittest.TestCase):
 
