@@ -132,6 +132,17 @@ class Layout( object ):
                 itab += 1
             if hasattr(w, 'TabOrder') or hasattr(w, 'Caption'):
                 sL.append( w.lfm_file_contents() )
+                
+            if hasattr(w,'widgetL'):
+                for child in w.widgetL:
+                    child.set_indent( self.indent + 1 )
+                    sL.append( child.lfm_file_contents() )
+                
+            if hasattr(w,'child_widgetL'):
+                for child in w.child_widgetL:
+                    child.set_indent( self.indent + 1 )
+                    sL.append( child.lfm_file_contents() )
+                
             
         sOut = '\n'.join(sL) + '\n'
         sOut = sOut.replace('\n\n','\n')

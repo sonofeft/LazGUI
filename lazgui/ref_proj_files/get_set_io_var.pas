@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,   Forms, Controls, Graphics,
-  Buttons, Variants,   Dialogs,
+  Buttons, Variants,   Dialogs, ExtCtrls,
   typinfo;
 
 function GetIOVarText(Control: TControl):String;
@@ -24,23 +24,56 @@ function GetIOVarText(Control: TControl):String;
 // Get text property
 var
   PropInfo  : PPropInfo;
+  //Items : TStringList;
+  i : integer;
 begin
+
+  Result := '';
+  
   PropInfo := GetPropInfo(Control, 'Text');
-  if PropInfo<>nil then 
-        Result := GetPropValue(Control, 'Text')
-   else Result := '';
-end;
+  if PropInfo<>nil then
+      begin
+        Result := GetPropValue(Control, 'Text');
+        exit;
+      end;
+
+
+  PropInfo := GetPropInfo(Control, 'ItemIndex');
+  if PropInfo<>nil then
+      begin
+        i := GetPropValue(Control, 'ItemIndex');
+        PropInfo := GetPropInfo(Control, 'Items');
+
+        if PropInfo<>nil then
+            begin
+                 //Items := GetObjectProp(Control, 'Items') As TStringList;
+                 Result := (GetObjectProp(Control, 'Items') As TStringList)[i]
+            end;
+      end;
+
+end;                
 
 procedure SetIOVarText(Control: TControl; new_text:String);
 // Set text property
 var
   PropInfo  : PPropInfo;
+  i : integer;
 begin
   PropInfo := GetPropInfo(Control, 'Text');
-  if PropInfo<>nil then 
+  if PropInfo<>nil then
       begin
         SetPropValue(Control, 'Text', new_text);
       end;
+
+  PropInfo := GetPropInfo(Control, 'ItemIndex');
+  if PropInfo<>nil then
+      begin
+
+          i := (GetObjectProp(Control, 'Items') As TStringList).IndexOf(new_text);
+          //ShowMessage('i = '+IntToStr(i));
+          if (i >= 0) then
+            SetPropValue(Control, 'ItemIndex', i);
+      end
 end;
 // ===================================
 

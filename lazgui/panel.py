@@ -91,19 +91,31 @@ if __name__ == '__main__':
     from button import Button
     from edit import Edit
     from layout import VStackPanel
+    from gui_factory import *
+
     
     Lay = VStackPanel(Left=10,  Height=0,  Top=10,  Width=0, 
                           TopMargin=10, RightMargin=10, BottomMargin=10, LeftMargin=10)
                  
-    Lay.add_widget( Edit( widget_name='Get_Text', initial_value='Hi') )
-    Lay.add_widget( Edit( widget_name='Get_Int', initial_value=3) )
-    Lay.add_widget( Edit( widget_name='Get_Float', initial_value=5.55) )
-    Lay.add_widget( Edit( widget_name='Get_Bool', initial_value=True) )
+    #Lay.add_widget( Edit( widget_name='Get_Text', initial_value='Hi') )
+    #Lay.add_widget( Edit( widget_name='Get_Int', initial_value=3) )
+    #Lay.add_widget( Edit( widget_name='Get_Float', initial_value=5.55) )
+    #Lay.add_widget( Edit( widget_name='Get_Bool', initial_value=True) )
     
-    F = Panel(  layout=Lay,
+    LayH = get_layout(layout_type='hstack', Left=41,  Height=0,  Top=42,  Width=0, 
+                      TopMargin=6, RightMargin=6, BottomMargin=6, LeftMargin=6)
+    LayH.add_widget( get_edit(widget_name='Get Other Stuff', 
+                             label_text='Enter Other Stuff', initial_value='LabeledEdit') )
+
+    LayH.add_widget( get_edit(edit_type='other', widget_name='GetValue',  
+                    initial_value='HLayout Wrapped', label_text='xxx') )
+    Lay.add_widget( get_panel(layout=LayH) )
+    
+    
+    P = Panel(  layout=Lay,
                 widget_name='MyPanel', Left=41,  Height=25,  Top=42,  Width=75, 
                 has_OnClick=True)
                  
-    print F.pas_file_implement()
+    print P.pas_file_implement()
     print '='*55
-    print F.lfm_file_contents()
+    print P.lfm_file_contents()

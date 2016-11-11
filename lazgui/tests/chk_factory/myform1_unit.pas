@@ -14,6 +14,7 @@ type
   { TMyForm1 }
 
   TMyForm1 = class(TForm)
+    MyChoice_RadioGroup: TRadioGroup;
     Get_Text_Label: TLabel;
     Do_Wide_Things_Button: TButton;
     Get_What_Edit: TEdit;
@@ -38,6 +39,7 @@ type
     mnuFileSave: TMenuItem;
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;  
+    procedure MyChoice_RadioGroup_SelectionChange(Sender: TObject);
 
     procedure Do_Wide_Things_Button_Click(Sender: TObject);
     procedure Get_What_Edit_Change(Sender: TObject);
@@ -73,10 +75,11 @@ var
   Last_Sender : TObject; // Used to stop "not used" Hints for Sender
   current_open_filename: string = '';
   Version_Number: string = 'Version 1.0';
+  MyChoice_RadioGroup_val : String = 'default option #2';
   Get_What_Edit_val : String = 'No Label';
   Get_Stuff_LabeledEdit_val : String = 'Has Label';
   Get_Other_Stuff_LabeledEdit_val : String = 'LabeledEdit';
-  GetValue_Edit_val : String = 'VLayout Wrapped';
+  GetValue_Edit_val : String = 'HLayout Wrapped';
   Get_What_Edit1_val : String = 'No Label';
   Get_Stuff_LabeledEdit1_val : String = 'Has Label';
   Get_What_Edit2_val : String = 'No Label #2';
@@ -96,7 +99,7 @@ begin
     appINI := TIniFile.Create( fname );
     
     try
-        GetValue_Edit_val               := appINI.ReadString('Input', 'GetValue_Edit_val', 'VLayout Wrapped');
+        GetValue_Edit_val               := appINI.ReadString('Input', 'GetValue_Edit_val', 'HLayout Wrapped');
         Get_Other_Stuff_LabeledEdit_val := appINI.ReadString('Input', 'Get_Other_Stuff_LabeledEdit_val', 'LabeledEdit');
         Get_Stuff_LabeledEdit1_val      := appINI.ReadString('Input', 'Get_Stuff_LabeledEdit1_val', 'Has Label');
         Get_Stuff_LabeledEdit_val       := appINI.ReadString('Input', 'Get_Stuff_LabeledEdit_val', 'Has Label');
@@ -104,6 +107,7 @@ begin
         Get_What_Edit1_val              := appINI.ReadString('Input', 'Get_What_Edit1_val', 'No Label');
         Get_What_Edit2_val              := appINI.ReadString('Input', 'Get_What_Edit2_val', 'No Label #2');
         Get_What_Edit_val               := appINI.ReadString('Input', 'Get_What_Edit_val', 'No Label');
+        MyChoice_RadioGroup_val         := appINI.ReadString('Input', 'MyChoice_RadioGroup_val', 'default option #2');
     finally
         appINI.Free;
     end;
@@ -126,16 +130,33 @@ begin
         appINI.WriteString('Input', 'Get_What_Edit1_val', Get_What_Edit1_val);
         appINI.WriteString('Input', 'Get_What_Edit2_val', Get_What_Edit2_val);
         appINI.WriteString('Input', 'Get_What_Edit_val', Get_What_Edit_val);
+        appINI.WriteString('Input', 'MyChoice_RadioGroup_val', MyChoice_RadioGroup_val);
     finally
         appINI.Free;
     end;
     
 end;
 
+procedure TMyForm1.MyChoice_RadioGroup_SelectionChange(Sender: TObject);
+begin
+    Last_Sender := Sender;
+    MyForm1.Caption := 'Selection None is ' + GetIOVarText(MyChoice_RadioGroup); 
+end;
 procedure TMyForm1.Do_Wide_Things_Button_Click(Sender: TObject);
 begin
     Last_Sender := Sender;
     MyForm1.Caption := 'Clicked ' + Sender.ToString + ' Do_Wide_Things_Button_Click';
+    MyChoice_RadioGroup_val := 'default option #1';
+     Get_What_Edit_val := 'XXXXXXXXXXXX';
+     Get_Stuff_LabeledEdit_val := 'XXXXXXXXXXXX';
+     Get_Other_Stuff_LabeledEdit_val := 'XXXXXXXXXXXX';
+     GetValue_Edit_val := 'XXXXXXXXXXXX';
+     Get_What_Edit1_val := 'XXXXXXXXXXXX';
+     Get_Stuff_LabeledEdit1_val := 'XXXXXXXXXXXX';
+     Get_What_Edit2_val := 'XXXXXXXXXXXX';
+     Get_Stuff__2_LabeledEdit_val := 'XXXXXXXXXXXX';
+     Set_All_IO_Vars();
+
 end;
 procedure TMyForm1.Get_What_Edit_Change(Sender: TObject);
 begin
@@ -179,6 +200,7 @@ begin
 end;
 procedure TMyForm1.Get_All_IO_Vars();
 begin
+    MyChoice_RadioGroup_val := GetIOVarString(MyChoice_RadioGroup, MyChoice_RadioGroup_val, 'MyChoice_RadioGroup');
     Get_What_Edit_val := GetIOVarString(Get_What_Edit, Get_What_Edit_val, 'Get_What_Edit');
     Get_Stuff_LabeledEdit_val := GetIOVarString(Get_Stuff_LabeledEdit, Get_Stuff_LabeledEdit_val, 'Enter Stuff');
     Get_Other_Stuff_LabeledEdit_val := GetIOVarString(Get_Other_Stuff_LabeledEdit, Get_Other_Stuff_LabeledEdit_val, 'Enter Other Stuff');
@@ -190,6 +212,7 @@ begin
 end;
 procedure TMyForm1.Set_All_IO_Vars();
 begin
+    SetIOVarText(MyChoice_RadioGroup, VarToStr(MyChoice_RadioGroup_val));
     SetIOVarText(Get_What_Edit, VarToStr(Get_What_Edit_val));
     SetIOVarText(Get_Stuff_LabeledEdit, VarToStr(Get_Stuff_LabeledEdit_val));
     SetIOVarText(Get_Other_Stuff_LabeledEdit, VarToStr(Get_Other_Stuff_LabeledEdit_val));
