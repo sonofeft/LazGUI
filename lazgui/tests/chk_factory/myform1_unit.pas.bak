@@ -23,6 +23,7 @@ type
     Get_Other_Stuff_LabeledEdit: TLabeledEdit;
     GetValueLabel_Label: TLabel;
     GetValue_Edit: TEdit;
+    MyLBChoice_ListBox: TListBox;
     MyPageControl_PageControl: TPageControl;
     MyTabSheet_Panel: TTabSheet;
     Get_What_Edit1: TEdit;
@@ -39,7 +40,7 @@ type
     mnuFileSave: TMenuItem;
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;  
-    procedure MyChoice_RadioGroup_SelectionChange(Sender: TObject);
+    procedure MyChoice_RadioGroup_SelectionChanged(Sender: TObject);
 
     procedure Do_Wide_Things_Button_Click(Sender: TObject);
     procedure Get_What_Edit_Change(Sender: TObject);
@@ -48,6 +49,7 @@ type
     procedure Get_Other_Stuff_LabeledEdit_Change(Sender: TObject);
 
     procedure GetValue_Edit_Change(Sender: TObject);
+    procedure MyLBChoice_ListBox_SelectionChange(Sender: TObject);
 
 
     procedure Get_What_Edit1Change(Sender: TObject);
@@ -80,6 +82,7 @@ var
   Get_Stuff_LabeledEdit_val : String = 'Has Label';
   Get_Other_Stuff_LabeledEdit_val : String = 'LabeledEdit';
   GetValue_Edit_val : String = 'HLayout Wrapped';
+  MyLBChoice_ListBox_val : String = 'default option #2';
   Get_What_Edit1_val : String = 'No Label';
   Get_Stuff_LabeledEdit1_val : String = 'Has Label';
   Get_What_Edit2_val : String = 'No Label #2';
@@ -108,6 +111,7 @@ begin
         Get_What_Edit2_val              := appINI.ReadString('Input', 'Get_What_Edit2_val', 'No Label #2');
         Get_What_Edit_val               := appINI.ReadString('Input', 'Get_What_Edit_val', 'No Label');
         MyChoice_RadioGroup_val         := appINI.ReadString('Input', 'MyChoice_RadioGroup_val', 'default option #2');
+        MyLBChoice_ListBox_val          := appINI.ReadString('Input', 'MyLBChoice_ListBox_val', 'default option #2');
     finally
         appINI.Free;
     end;
@@ -131,16 +135,17 @@ begin
         appINI.WriteString('Input', 'Get_What_Edit2_val', Get_What_Edit2_val);
         appINI.WriteString('Input', 'Get_What_Edit_val', Get_What_Edit_val);
         appINI.WriteString('Input', 'MyChoice_RadioGroup_val', MyChoice_RadioGroup_val);
+        appINI.WriteString('Input', 'MyLBChoice_ListBox_val', MyLBChoice_ListBox_val);
     finally
         appINI.Free;
     end;
     
 end;
 
-procedure TMyForm1.MyChoice_RadioGroup_SelectionChange(Sender: TObject);
+procedure TMyForm1.MyChoice_RadioGroup_SelectionChanged(Sender: TObject);
 begin
     Last_Sender := Sender;
-    MyForm1.Caption := 'Selection None is ' + GetIOVarText(MyChoice_RadioGroup); 
+    MyForm1.Caption := 'Selection MyChoice_RadioGroup_SelectionChanged is ' + GetIOVarText(MyChoice_RadioGroup); 
 end;
 procedure TMyForm1.Do_Wide_Things_Button_Click(Sender: TObject);
 begin
@@ -166,6 +171,11 @@ procedure TMyForm1.GetValue_Edit_Change(Sender: TObject);
 begin
     Last_Sender := Sender;
     MyForm1.Caption := 'Changed GetValue_Edit_Change to ' + GetIOVarText(GetValue_Edit); 
+end;
+procedure TMyForm1.MyLBChoice_ListBox_SelectionChange(Sender: TObject);
+begin
+    Last_Sender := Sender;
+    MyForm1.Caption := 'Selection MyLBChoice_ListBox_SelectionChange is ' + GetIOVarText(MyLBChoice_ListBox); 
 end;
 procedure TMyForm1.Get_What_Edit1Change(Sender: TObject);
 begin
@@ -194,6 +204,7 @@ begin
     Get_Stuff_LabeledEdit_val := GetIOVarString(Get_Stuff_LabeledEdit, Get_Stuff_LabeledEdit_val, 'Enter Stuff');
     Get_Other_Stuff_LabeledEdit_val := GetIOVarString(Get_Other_Stuff_LabeledEdit, Get_Other_Stuff_LabeledEdit_val, 'Enter Other Stuff');
     GetValue_Edit_val := GetIOVarString(GetValue_Edit, GetValue_Edit_val, 'GetValue_Edit');
+    MyLBChoice_ListBox_val := GetIOVarString(MyLBChoice_ListBox, MyLBChoice_ListBox_val, 'MyLBChoice_ListBox');
     Get_What_Edit1_val := GetIOVarString(Get_What_Edit1, Get_What_Edit1_val, 'Get_What_Edit1');
     Get_Stuff_LabeledEdit1_val := GetIOVarString(Get_Stuff_LabeledEdit1, Get_Stuff_LabeledEdit1_val, 'Enter Stuff');
     Get_What_Edit2_val := GetIOVarString(Get_What_Edit2, Get_What_Edit2_val, 'Get_What_Edit2');
@@ -206,6 +217,7 @@ begin
     SetIOVarText(Get_Stuff_LabeledEdit, VarToStr(Get_Stuff_LabeledEdit_val));
     SetIOVarText(Get_Other_Stuff_LabeledEdit, VarToStr(Get_Other_Stuff_LabeledEdit_val));
     SetIOVarText(GetValue_Edit, VarToStr(GetValue_Edit_val));
+    SetIOVarText(MyLBChoice_ListBox, VarToStr(MyLBChoice_ListBox_val));
     SetIOVarText(Get_What_Edit1, VarToStr(Get_What_Edit1_val));
     SetIOVarText(Get_Stuff_LabeledEdit1, VarToStr(Get_Stuff_LabeledEdit1_val));
     SetIOVarText(Get_What_Edit2, VarToStr(Get_What_Edit2_val));

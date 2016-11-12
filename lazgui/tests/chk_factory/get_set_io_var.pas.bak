@@ -27,10 +27,15 @@ var
   //Items : TStringList;
   i : integer;
 begin
+
+  Result := '';
+  
   PropInfo := GetPropInfo(Control, 'Text');
   if PropInfo<>nil then
-        Result := GetPropValue(Control, 'Text')
-   else Result := '';
+      begin
+        Result := GetPropValue(Control, 'Text');
+        exit;
+      end;
 
 
   PropInfo := GetPropInfo(Control, 'ItemIndex');
@@ -43,11 +48,8 @@ begin
             begin
                  //Items := GetObjectProp(Control, 'Items') As TStringList;
                  Result := (GetObjectProp(Control, 'Items') As TStringList)[i]
-            end
-        else
-            Result := '';
-      end
-   else Result := '';
+            end;
+      end;
 
 end;                
 
@@ -68,7 +70,7 @@ begin
       begin
 
           i := (GetObjectProp(Control, 'Items') As TStringList).IndexOf(new_text);
-          ShowMessage('i = '+IntToStr(i));
+          //ShowMessage('i = '+IntToStr(i));
           if (i >= 0) then
             SetPropValue(Control, 'ItemIndex', i);
       end

@@ -11,6 +11,7 @@ from layout import Layout, VStackPanel, HStackPanel, GridPanel
 from panel import Panel
 from page_control import PageControl, TabSheet
 from radio_group import RadioGroup
+from listbox import ListBox
 
 def key_word_args(paramL, local_dict):
     """Make a dict of key word arguements with their call values"""
@@ -19,6 +20,17 @@ def key_word_args(paramL, local_dict):
         kwargs[param] = local_dict[param]
     return kwargs
     
+
+# ============================== ListBox ======================================
+def get_listbox(Items=None, ItemIndex=0, ItemHeight=15,
+                 widget_name='MyChoice', Left=0,  Height=100,  Top=0,  Width=200, 
+                 TopMargin=10, RightMargin=10, BottomMargin=10, LeftMargin=10,
+                 has_OnClick=False, has_OnSelectionChange=True):
+        
+    return ListBox( **key_word_args(LISTBOX_PARAML, locals()) )
+                   
+LISTBOX_PARAML = inspect.getargspec( get_listbox )[0]
+
 
 # ============================== RadioGroup ======================================
 def get_radiogroup(Items=None, ItemIndex=0,

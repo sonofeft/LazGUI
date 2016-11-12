@@ -1,24 +1,21 @@
 object MyForm1: TMyForm1
   Left = 611
-  Height = 798
+  Height = 844
   Top = 162
-  Width = 473
+  Width = 617
   Caption = 'MyForm1'
-  LCLVersion = '1.6.0.4'
-  ClientHeight = 798
-  ClientWidth = 473
+  ClientHeight = 824
+  ClientWidth = 617
   Menu = MainMenu1
   OnCreate = FormCreate
+  LCLVersion = '1.6.0.4'
   object MyChoice_RadioGroup: TRadioGroup
     Left = 51
-    Height = 100
+    Height = 77
     Top = 52
-    Width = 200
-    AutoSize = True
-    OnSelectionChanged = MyChoice_RadioGroup_SelectionChange
-    TabOrder = 0
-    ItemIndex = 1
+    Width = 127
     AutoFill = True
+    AutoSize = True
     ChildSizing.LeftRightSpacing = 6
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
@@ -26,26 +23,30 @@ object MyForm1: TMyForm1
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
+    ClientHeight = 57
+    ClientWidth = 123
+    ItemIndex = 1
     Items.Strings = (
       'default option #1'
       'default option #2'
       'default option #3'
     )
+    OnSelectionChanged = MyChoice_RadioGroup_SelectionChanged
+    TabOrder = 0
   end
   object Get_Text_Label: TLabel
     Left = 51
-    Height = 25
+    Height = 15
     Top = 172
-    Width = 133
-    AutoSize = True
+    Width = 93
     Caption = 'Label for Get_Text'
+    ParentColor = False
   end
   object Do_Wide_Things_Button: TButton
     Left = 51
     Height = 25
     Top = 197
     Width = 154
-    AutoSize = False
     Caption = 'Do_Wide_Things_Button'
     OnClick = Do_Wide_Things_Button_Click
     TabOrder = 1
@@ -66,57 +67,55 @@ object MyForm1: TMyForm1
     Top = 285
     Width = 86
     AutoSize = False
-    OnChange = Get_Stuff_LabeledEdit_Change
-    TabOrder = 3
-    Text = 'Has Label'
     EditLabel.AnchorSideLeft.Control = Get_Stuff_LabeledEdit
     EditLabel.AnchorSideRight.Control = Get_Stuff_LabeledEdit
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = Get_Stuff_LabeledEdit
     EditLabel.Left = 51
     EditLabel.Height = 15
-    EditLabel.Top = 263
+    EditLabel.Top = 267
     EditLabel.Width = 86
     EditLabel.Caption = 'Enter Stuff'
     EditLabel.ParentColor = False
     TabOrder = 3
+    Text = 'Has Label'
+    OnChange = Get_Stuff_LabeledEdit_Change
   end
   object MyPanel_Panel: TPanel
     Left = 51
-    Height = 128
+    Height = 174
     Top = 328
-    Width = 324
-    AutoSize = False
-    ClientHeight = 128
-    ClientWidth = 324
+    Width = 544
+    ClientHeight = 174
+    ClientWidth = 544
+    TabOrder = 5
     object Get_Other_Stuff_LabeledEdit: TLabeledEdit
       Left = 51
       Height = 23
       Top = 52
       Width = 126
       AutoSize = False
-      OnChange = Get_Other_Stuff_LabeledEdit_Change
-      TabOrder = 0
-      Text = 'LabeledEdit'
       EditLabel.AnchorSideLeft.Control = Get_Other_Stuff_LabeledEdit
       EditLabel.AnchorSideRight.Control = Get_Other_Stuff_LabeledEdit
       EditLabel.AnchorSideRight.Side = asrBottom
       EditLabel.AnchorSideBottom.Control = Get_Other_Stuff_LabeledEdit
       EditLabel.Left = 51
       EditLabel.Height = 15
-      EditLabel.Top = 30
+      EditLabel.Top = 34
       EditLabel.Width = 126
       EditLabel.Caption = 'Enter Other Stuff'
       EditLabel.ParentColor = False
-      TabOrder = 0
+      TabOrder = 2
+      Text = 'LabeledEdit'
+      OnChange = Get_Other_Stuff_LabeledEdit_Change
     end
     object GetValueLabel_Label: TLabel
       Left = 203
-      Height = 25
+      Height = 15
       Top = 58
-      Width = 75
-      AutoSize = True
+      Width = 15
       Caption = 'xxx'
+      ParentColor = False
     end
     object GetValue_Edit: TEdit
       Left = 203
@@ -128,15 +127,30 @@ object MyForm1: TMyForm1
       TabOrder = 0
       Text = 'HLayout Wrapped'
     end
+    object MyLBChoice_ListBox: TListBox
+      Left = 322
+      Height = 100
+      Top = 52
+      Width = 200
+      Items.Strings = (
+        'default option #1'
+        'default option #2'
+        'default option #3'
+      )
+      ItemHeight = 15
+      ItemIndex = 1
+      OnSelectionChange = MyLBChoice_ListBox_SelectionChange
+      TabOrder = 1
+    end
   end
   object MyPageControl_PageControl: TPageControl
     Left = 51
     Height = 300
-    Top = 476
+    Top = 522
     Width = 400
-    TabOrder = 4
     ActivePage = MyTabSheet_Panel
     TabIndex = 0
+    TabOrder = 4
     object MyTabSheet_Panel: TTabSheet
       Caption = 'My 1st Tab'
       ClientHeight = 272
@@ -157,20 +171,19 @@ object MyForm1: TMyForm1
         Top = 53
         Width = 86
         AutoSize = False
-        OnChange = Get_Stuff_LabeledEdit1Change
-        TabOrder = 1
-        Text = 'Has Label'
         EditLabel.AnchorSideLeft.Control = Get_Stuff_LabeledEdit1
         EditLabel.AnchorSideRight.Control = Get_Stuff_LabeledEdit1
         EditLabel.AnchorSideRight.Side = asrBottom
         EditLabel.AnchorSideBottom.Control = Get_Stuff_LabeledEdit1
         EditLabel.Left = 10
         EditLabel.Height = 15
-        EditLabel.Top = 31
+        EditLabel.Top = 35
         EditLabel.Width = 86
         EditLabel.Caption = 'Enter Stuff'
         EditLabel.ParentColor = False
         TabOrder = 1
+        Text = 'Has Label'
+        OnChange = Get_Stuff_LabeledEdit1Change
       end
     end
     object MyTabSheet_Panel1: TTabSheet
@@ -193,9 +206,6 @@ object MyForm1: TMyForm1
         Top = 53
         Width = 106
         AutoSize = False
-        OnChange = Get_Stuff__2_LabeledEdit_Change
-        TabOrder = 1
-        Text = 'Has Label #2'
         EditLabel.AnchorSideLeft.Control = Get_Stuff__2_LabeledEdit
         EditLabel.AnchorSideRight.Control = Get_Stuff__2_LabeledEdit
         EditLabel.AnchorSideRight.Side = asrBottom
@@ -207,6 +217,8 @@ object MyForm1: TMyForm1
         EditLabel.Caption = 'Enter Stuff #2'
         EditLabel.ParentColor = False
         TabOrder = 1
+        Text = 'Has Label #2'
+        OnChange = Get_Stuff__2_LabeledEdit_Change
       end
     end
   end

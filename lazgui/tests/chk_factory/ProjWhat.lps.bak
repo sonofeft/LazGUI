@@ -1,66 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <PathDelim Value="\"/>
-    <Version Value="9"/>
-    <BuildModes Active="Default"/>
-    <Units Count="3">
+    <PathDelim Value="" />
+    <Version Value="9" />
+    <BuildModes Active="Default" />
+    <Units Count="2">
       <Unit0>
-        <Filename Value="ProjWhat.lpr"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <Filename Value="ProjWhat.lpr" />
+        <IsPartOfProject Value="True" />
+        <EditorIndex Value="-1" />
+        <WindowIndex Value="-1" />
+        <TopLine Value="-1" />
+        <CursorPos X="-1" Y="-1" />
+        <UsageCount Value="20" />
       </Unit0>
       <Unit1>
-        <Filename Value="myform1_unit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="MyForm1"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="MyForm1_Unit"/>
-        <TopLine Value="174"/>
-        <CursorPos X="18" Y="196"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <Filename Value="myform1_unit.pas" />
+        <IsPartOfProject Value="True" />
+        <ComponentName Value="MyForm1" />
+        <ResourceBaseClass Value="Form" />
+        <UnitName Value="MyForm1_Unit" />
+        <IsVisibleTab Value="True" />
+        <UsageCount Value="20" />
+        <Loaded Value="True" />
+        <LoadedDesigner Value="True" />
       </Unit1>
-      <Unit2>
-        <Filename Value="myform1_unit.lfm"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit2>
     </Units>
-    <JumpHistory Count="6" HistoryIndex="5">
-      <Position1>
-        <Filename Value="myform1_unit.pas"/>
-        <Caret Line="50" Column="28" TopLine="29"/>
-      </Position1>
-      <Position2>
-        <Filename Value="myform1_unit.pas"/>
-        <Caret Line="82" Column="16" TopLine="48"/>
-      </Position2>
-      <Position3>
-        <Filename Value="myform1_unit.pas"/>
-        <Caret Line="102" Column="85" TopLine="68"/>
-      </Position3>
-      <Position4>
-        <Filename Value="myform1_unit.pas"/>
-        <Caret Line="125" Column="71" TopLine="106"/>
-      </Position4>
-      <Position5>
-        <Filename Value="myform1_unit.pas"/>
-        <Caret Line="165" Column="33" TopLine="140"/>
-      </Position5>
-      <Position6>
-        <Filename Value="myform1_unit.pas"/>
-        <Caret Line="168" Column="87" TopLine="140"/>
-      </Position6>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1" />
   </ProjectSession>
 </CONFIG>

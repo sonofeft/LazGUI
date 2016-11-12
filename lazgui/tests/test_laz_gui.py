@@ -161,6 +161,13 @@ class MyTest(unittest.TestCase):
 
         LayH.add_widget( get_edit(edit_type='other', widget_name='GetValue',  
                         initial_value='HLayout Wrapped', label_text='xxx') )
+                        
+        LayH.add_widget( get_listbox(Items=None, ItemIndex=1, ItemHeight=15,
+                 widget_name='MyLBChoice', Left=0,  Height=100,  Top=0,  Width=200, 
+                 TopMargin=10, RightMargin=10, BottomMargin=10, LeftMargin=10,
+                 has_OnClick=False, has_OnSelectionChange=True) )
+                        
+                        
         Lay.add_widget( get_panel(layout=LayH) )
         
         # - - - -

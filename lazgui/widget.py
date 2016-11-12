@@ -27,6 +27,7 @@ class Widget( object ):
                  TopMargin=6, RightMargin=6, BottomMargin=6, LeftMargin=6,
                  Caption=None, has_OnClick=True, has_OnChange=False,
                  has_OnSelectionChanged=False,
+                 has_OnSelectionChange=False,
                  AutoSize=False, grow_for_long_text=True):
                  
         #self.base_widget_name = widget_name
@@ -54,6 +55,7 @@ class Widget( object ):
         self.has_OnClick = has_OnClick
         self.has_OnChange = has_OnChange
         self.has_OnSelectionChanged = has_OnSelectionChanged
+        self.has_OnSelectionChange = has_OnSelectionChange
         
         self.AutoSize = AutoSize
         self.grow_for_long_text = grow_for_long_text
@@ -69,9 +71,14 @@ class Widget( object ):
             self.OnChange = None
         
         if has_OnSelectionChanged:
-            self.OnSelectionChanged = self.full_widget_name + '_SelectionChange'
+            self.OnSelectionChanged = self.full_widget_name + '_SelectionChanged'
         else:
             self.OnSelectionChanged = None
+        
+        if has_OnSelectionChange:
+            self.OnSelectionChange = self.full_widget_name + '_SelectionChange'
+        else:
+            self.OnSelectionChange = None
 
 
         if Caption is None:
@@ -156,10 +163,14 @@ class Widget( object ):
         if self.has_OnSelectionChanged:
             sL.append( '    procedure %s(Sender: TObject);'%self.OnSelectionChanged )
 
+        if self.has_OnSelectionChange:
+            sL.append( '    procedure %s(Sender: TObject);'%self.OnSelectionChange )
+
         return '\n'.join(sL) #+ '\n'
 
     def pas_file_implement(self, form_name='Form1'):
-        if not (self.has_OnClick or self.has_OnChange or self.has_OnSelectionChanged):
+        if not (self.has_OnClick or self.has_OnChange or 
+                self.has_OnSelectionChanged  or self.has_OnSelectionChange):
             return ''
         
         if self.has_OnClick:
@@ -187,7 +198,18 @@ class Widget( object ):
             sL.append('begin')
             sL.append('    Last_Sender := Sender;')
             #sL.append( "    %s.Caption := 'Changed ' + Sender.ToString + ' %s';"%(form_name, self.OnChange) )
-            sL.append( "    %s.Caption := 'Selection %s is ' + GetIOVarText(%s); "%(form_name, self.OnChange, self.full_widget_name) )
+            sL.append( "    %s.Caption := 'Selection %s is ' + GetIOVarText(%s); "%(form_name, self.OnSelectionChanged, self.full_widget_name) )
+             
+            sL.append('end;')
+        
+        # ============
+        
+        if self.has_OnSelectionChange:
+            sL = ['procedure T%s.%s(Sender: TObject);'%(form_name, self.OnSelectionChange)  ]
+            sL.append('begin')
+            sL.append('    Last_Sender := Sender;')
+            #sL.append( "    %s.Caption := 'Changed ' + Sender.ToString + ' %s';"%(form_name, self.OnChange) )
+            sL.append( "    %s.Caption := 'Selection %s is ' + GetIOVarText(%s); "%(form_name, self.OnSelectionChange, self.full_widget_name) )
              
             sL.append('end;')
 
@@ -201,7 +223,7 @@ class Widget( object ):
         
         sL = [pad+'  object %s: T%s'%(self.full_widget_name, self.widget_type)  ]
         for s in ['Left','Height','Top','Width','AutoSize','Caption',
-                  'OnClick','OnChange','OnSelectionChanged',
+                  'OnClick','OnChange','OnSelectionChanged','OnSelectionChange',
                   'TabOrder','Text',
                   'ClientHeight','ClientWidth',
                   'ActivePage','TabIndex']: # ActivePage and TabIndex used on PageControl & TabControl

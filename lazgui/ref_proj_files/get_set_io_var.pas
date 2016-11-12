@@ -46,8 +46,8 @@ begin
 
         if PropInfo<>nil then
             begin
-                 //Items := GetObjectProp(Control, 'Items') As TStringList;
-                 Result := (GetObjectProp(Control, 'Items') As TStringList)[i]
+                 // Handles both TStrings and TStringList
+                 Result := (GetObjectProp(Control, 'Items') As TStrings)[i]
             end;
       end;
 
@@ -68,8 +68,8 @@ begin
   PropInfo := GetPropInfo(Control, 'ItemIndex');
   if PropInfo<>nil then
       begin
-
-          i := (GetObjectProp(Control, 'Items') As TStringList).IndexOf(new_text);
+          // Handles both TStrings and TStringList
+          i := (GetObjectProp(Control, 'Items') As TStrings).IndexOf(new_text);
           //ShowMessage('i = '+IntToStr(i));
           if (i >= 0) then
             SetPropValue(Control, 'ItemIndex', i);
