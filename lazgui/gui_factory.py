@@ -12,6 +12,7 @@ from panel import Panel
 from page_control import PageControl, TabSheet
 from radio_group import RadioGroup
 from listbox import ListBox
+from checkbox import CheckBox
 
 def key_word_args(paramL, local_dict):
     """Make a dict of key word arguements with their call values"""
@@ -20,6 +21,18 @@ def key_word_args(paramL, local_dict):
         kwargs[param] = local_dict[param]
     return kwargs
     
+
+# ============================== CheckBox ======================================
+def get_checkbox(widget_name='Generic', Checked=False,
+                 Left=0,  Height=25,  Top=0,  Width=75, 
+                 TopMargin=10, RightMargin=10, BottomMargin=10, LeftMargin=10,
+                 Caption=None, has_OnClick=True, has_OnChange=False,
+                 AutoSize=True):
+        
+    return CheckBox( **key_word_args(CHECKBOX_PARAML, locals()) )
+                   
+CHECKBOX_PARAML = inspect.getargspec( get_checkbox )[0]
+
 
 # ============================== ListBox ======================================
 def get_listbox(Items=None, ItemIndex=0, ItemHeight=15,

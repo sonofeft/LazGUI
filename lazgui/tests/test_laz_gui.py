@@ -152,6 +152,11 @@ class MyTest(unittest.TestCase):
 
         Lay.add_widget( get_edit(widget_name='Get Stuff', 
                                  label_text='Enter Stuff', initial_value='Has Label') )
+                                 
+        Lay.add_widget( get_checkbox(widget_name='IsGood',  Checked=True,
+                 TopMargin=10, RightMargin=10, BottomMargin=10, LeftMargin=10,
+                 Caption='Is It Good?', has_OnClick=True, has_OnChange=False,
+                 AutoSize=True) )
         
         # - - - -
         LayH = get_layout(layout_type='hstack', Left=41,  Height=0,  Top=42,  Width=0, 

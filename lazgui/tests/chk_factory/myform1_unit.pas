@@ -19,6 +19,7 @@ type
     Do_Wide_Things_Button: TButton;
     Get_What_Edit: TEdit;
     Get_Stuff_LabeledEdit: TLabeledEdit;
+    IsGood_CheckBox: TCheckBox;
     MyPanel_Panel: TPanel;
     Get_Other_Stuff_LabeledEdit: TLabeledEdit;
     GetValueLabel_Label: TLabel;
@@ -45,6 +46,7 @@ type
     procedure Do_Wide_Things_Button_Click(Sender: TObject);
     procedure Get_What_Edit_Change(Sender: TObject);
     procedure Get_Stuff_LabeledEdit_Change(Sender: TObject);
+    procedure IsGood_CheckBox_Click(Sender: TObject);
 
     procedure Get_Other_Stuff_LabeledEdit_Change(Sender: TObject);
 
@@ -151,19 +153,6 @@ procedure TMyForm1.Do_Wide_Things_Button_Click(Sender: TObject);
 begin
     Last_Sender := Sender;
     MyForm1.Caption := 'Clicked ' + Sender.ToString + ' Do_Wide_Things_Button_Click';
-
-    MyChoice_RadioGroup_val := 'default option #1';
-    Get_What_Edit_val := 'X';
-    Get_Stuff_LabeledEdit_val := 'X';
-    Get_Other_Stuff_LabeledEdit_val := 'X';
-    GetValue_Edit_val := 'X';
-    MyLBChoice_ListBox_val := 'default option #1';
-    Get_What_Edit1_val := 'X';
-    Get_Stuff_LabeledEdit1_val := 'X';
-    Get_What_Edit2_val := 'X';
-    Get_Stuff__2_LabeledEdit_val := 'X';
-
-    Set_All_IO_Vars();
 end;
 procedure TMyForm1.Get_What_Edit_Change(Sender: TObject);
 begin
@@ -174,6 +163,11 @@ procedure TMyForm1.Get_Stuff_LabeledEdit_Change(Sender: TObject);
 begin
     Last_Sender := Sender;
     MyForm1.Caption := 'Changed Get_Stuff_LabeledEdit_Change to ' + GetIOVarText(Get_Stuff_LabeledEdit); 
+end;
+procedure TMyForm1.IsGood_CheckBox_Click(Sender: TObject);
+begin
+    Last_Sender := Sender;
+    MyForm1.Caption := 'Clicked ' + Sender.ToString + ' IsGood_CheckBox_Click';
 end;
 procedure TMyForm1.Get_Other_Stuff_LabeledEdit_Change(Sender: TObject);
 begin

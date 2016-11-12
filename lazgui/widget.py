@@ -224,7 +224,7 @@ class Widget( object ):
         sL = [pad+'  object %s: T%s'%(self.full_widget_name, self.widget_type)  ]
         for s in ['Left','Height','Top','Width','AutoSize','Caption',
                   'OnClick','OnChange','OnSelectionChanged','OnSelectionChange',
-                  'TabOrder','Text',
+                  'TabOrder','Text', 'Checked',
                   'ClientHeight','ClientWidth',
                   'ActivePage','TabIndex']: # ActivePage and TabIndex used on PageControl & TabControl
             a = getattr(self, s, None)
