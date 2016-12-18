@@ -148,6 +148,8 @@ class Form( object ):
             sL.append( "  Version_Number: string = 'Version 1.0';" )
             
         # Add I/O variables to global variables
+        if self.widget_io_var_nameL:
+            sL.append('\n  // IO Variables')
         for vname, vtype, vinit in zip(self.widget_io_var_nameL, self.widget_io_var_typeL, self.widget_io_var_initL):
             stype = pasStrTypeD.get(vtype,'UNKNOWN')
             if vtype==type('str'): # string

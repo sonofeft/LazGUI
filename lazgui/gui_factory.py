@@ -13,6 +13,7 @@ from page_control import PageControl, TabSheet
 from radio_group import RadioGroup
 from listbox import ListBox
 from checkbox import CheckBox
+from combobox import ComboBox
 
 def key_word_args(paramL, local_dict):
     """Make a dict of key word arguements with their call values"""
@@ -21,6 +22,16 @@ def key_word_args(paramL, local_dict):
         kwargs[param] = local_dict[param]
     return kwargs
     
+
+# ============================== ComboBox ======================================
+def get_combobox(Items=None, ItemIndex=0, ItemHeight=15,
+                 widget_name='MyChoice', Left=0,  Height=100,  Top=0,  Width=200, 
+                 TopMargin=10, RightMargin=10, BottomMargin=10, LeftMargin=10,
+                 has_OnClick=False, has_OnSelect=True):
+        
+    return ComboBox( **key_word_args(COMBOBOX_PARAML, locals()) )
+                   
+COMBOBOX_PARAML = inspect.getargspec( get_combobox )[0]
 
 # ============================== CheckBox ======================================
 def get_checkbox(widget_name='Generic', Checked=False,

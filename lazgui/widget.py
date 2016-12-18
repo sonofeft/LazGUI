@@ -27,6 +27,7 @@ class Widget( object ):
                  TopMargin=6, RightMargin=6, BottomMargin=6, LeftMargin=6,
                  Caption=None, has_OnClick=True, has_OnChange=False,
                  has_OnSelectionChanged=False,
+                 has_OnSelect=False,
                  has_OnSelectionChange=False,
                  AutoSize=False, grow_for_long_text=True):
                  
@@ -56,6 +57,7 @@ class Widget( object ):
         self.has_OnChange = has_OnChange
         self.has_OnSelectionChanged = has_OnSelectionChanged
         self.has_OnSelectionChange = has_OnSelectionChange
+        self.has_OnSelect = has_OnSelect
         
         self.AutoSize = AutoSize
         self.grow_for_long_text = grow_for_long_text
@@ -79,6 +81,11 @@ class Widget( object ):
             self.OnSelectionChange = self.full_widget_name + '_SelectionChange'
         else:
             self.OnSelectionChange = None
+        
+        if has_OnSelect:
+            self.OnSelect = self.full_widget_name + '_Select'
+        else:
+            self.OnSelect = None
 
 
         if Caption is None:
@@ -166,50 +173,86 @@ class Widget( object ):
         if self.has_OnSelectionChange:
             sL.append( '    procedure %s(Sender: TObject);'%self.OnSelectionChange )
 
+        if self.has_OnSelect:
+            sL.append( '    procedure %s(Sender: TObject);'%self.OnSelect )
+
         return '\n'.join(sL) #+ '\n'
 
     def pas_file_implement(self, form_name='Form1'):
         if not (self.has_OnClick or self.has_OnChange or 
-                self.has_OnSelectionChanged  or self.has_OnSelectionChange):
+                self.has_OnSelectionChanged  or self.has_OnSelectionChange 
+                or self.has_OnSelect):
             return ''
+            
+        sL = ['']
         
         if self.has_OnClick:
-            sL = ['procedure T%s.%s(Sender: TObject);'%(form_name, self.OnClick)  ]
+            sL.append('procedure T%s.%s(Sender: TObject);'%(form_name, self.OnClick)  )
             sL.append('begin')
             sL.append('    Last_Sender := Sender;')
             sL.append( "    %s.Caption := 'Clicked ' + Sender.ToString + ' %s';"%(form_name, self.OnClick) )
+            
+            if hasattr(self, 'value_type'):
+                wname = self.full_widget_name + '_val'  # holds names of widget value variables
+                sL.append("    %s := Sender.ToString;"%(wname,  ) )
+            
             sL.append('end;')
 
         # ============
         
         if self.has_OnChange:
-            sL = ['procedure T%s.%s(Sender: TObject);'%(form_name, self.OnChange)  ]
+            sL.append('procedure T%s.%s(Sender: TObject);'%(form_name, self.OnChange)  )
             sL.append('begin')
             sL.append('    Last_Sender := Sender;')
             #sL.append( "    %s.Caption := 'Changed ' + Sender.ToString + ' %s';"%(form_name, self.OnChange) )
             sL.append( "    %s.Caption := 'Changed %s to ' + GetIOVarText(%s); "%(form_name, self.OnChange, self.full_widget_name) )
+            
+            if hasattr(self, 'value_type'):
+                wname = self.full_widget_name + '_val'  # holds names of widget value variables
+                sL.append("    %s := GetIOVarText(%s);"%(wname,   self.full_widget_name) )
              
             sL.append('end;')
         
         # ============
         
         if self.has_OnSelectionChanged:
-            sL = ['procedure T%s.%s(Sender: TObject);'%(form_name, self.OnSelectionChanged)  ]
+            sL.append('procedure T%s.%s(Sender: TObject);'%(form_name, self.OnSelectionChanged)  )
             sL.append('begin')
             sL.append('    Last_Sender := Sender;')
             #sL.append( "    %s.Caption := 'Changed ' + Sender.ToString + ' %s';"%(form_name, self.OnChange) )
             sL.append( "    %s.Caption := 'Selection %s is ' + GetIOVarText(%s); "%(form_name, self.OnSelectionChanged, self.full_widget_name) )
+            
+            if hasattr(self, 'value_type'):
+                wname = self.full_widget_name + '_val'  # holds names of widget value variables
+                sL.append("    %s := GetIOVarText(%s);"%(wname,   self.full_widget_name) )
              
             sL.append('end;')
         
         # ============
         
         if self.has_OnSelectionChange:
-            sL = ['procedure T%s.%s(Sender: TObject);'%(form_name, self.OnSelectionChange)  ]
+            sL.append('procedure T%s.%s(Sender: TObject);'%(form_name, self.OnSelectionChange)  )
             sL.append('begin')
             sL.append('    Last_Sender := Sender;')
-            #sL.append( "    %s.Caption := 'Changed ' + Sender.ToString + ' %s';"%(form_name, self.OnChange) )
             sL.append( "    %s.Caption := 'Selection %s is ' + GetIOVarText(%s); "%(form_name, self.OnSelectionChange, self.full_widget_name) )
+            
+            if hasattr(self, 'value_type'):
+                wname = self.full_widget_name + '_val'  # holds names of widget value variables
+                sL.append("    %s := GetIOVarText(%s);"%(wname,   self.full_widget_name) )
+             
+            sL.append('end;')
+
+
+        
+        if self.has_OnSelect:
+            sL.append('procedure T%s.%s(Sender: TObject);'%(form_name, self.OnSelect)  )
+            sL.append('begin')
+            sL.append('    Last_Sender := Sender;')
+            sL.append( "    %s.Caption := 'Selection %s is ' + GetIOVarText(%s); "%(form_name, self.OnSelect, self.full_widget_name) )
+            
+            if hasattr(self, 'value_type'):
+                wname = self.full_widget_name + '_val'  # holds names of widget value variables
+                sL.append("    %s := GetIOVarText(%s);"%(wname,   self.full_widget_name) )
              
             sL.append('end;')
 
@@ -223,7 +266,7 @@ class Widget( object ):
         
         sL = [pad+'  object %s: T%s'%(self.full_widget_name, self.widget_type)  ]
         for s in ['Left','Height','Top','Width','AutoSize','Caption',
-                  'OnClick','OnChange','OnSelectionChanged','OnSelectionChange',
+                  'OnClick','OnChange','OnSelectionChanged','OnSelectionChange','OnSelect',
                   'TabOrder','Text', 'Checked',
                   'ClientHeight','ClientWidth',
                   'ActivePage','TabIndex']: # ActivePage and TabIndex used on PageControl & TabControl
